@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::group(['prefix' => 'tickets'], function () {
     Route::get('/closed', [TicketController::class, 'closed'])->name('ticket.closed'); #Filters by closed
 });
 
-Route::get('/users/{email}/tickets', [TicketController::class, 'getUserTickets']); #Shows tickets by user
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/', [UserController::class, 'index'])->name('users.index'); #Shows all users (mainly to get an email for the below route)
+    Route::get('/{email}/tickets', [UserController::class, 'tickets'])->name('users.tickets'); #Shows tickets by user
+});
 
 Route::get('/stats', [TicketController::class, 'getTicketStats']); #Lists ticket stats

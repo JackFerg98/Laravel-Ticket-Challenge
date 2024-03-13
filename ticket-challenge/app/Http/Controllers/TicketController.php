@@ -34,7 +34,7 @@ class TicketController extends Controller
     {
         $userTickets = Ticket::where('email', $email)->paginate(10);
         
-        return response()->json($closedTickets);
+        return response()->json($userTickets);
     }
 
     public function getTicketStats() 
@@ -55,7 +55,7 @@ class TicketController extends Controller
             return response()->json([
                 'total_tickets' => $totalTickets,
                 'unprocessed_tickets' => $unprocessedTickets,
-                'top_user' => $topUser->user_name ?? null,
+                'top_user' => ['name: '.$topUser->user_name, 'amount: '.$topUser->ticket_count] ?? null,
                 'last_processing_time' => $lastProcessingTime ?? null,
             ]);
         }

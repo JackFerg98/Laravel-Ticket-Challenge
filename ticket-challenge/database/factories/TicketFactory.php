@@ -29,10 +29,19 @@ class TicketFactory extends Factory
         return [
             'subject' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
-            'user_name' => $userName,
-            'user_email' => $user->email,
+            'user_name' => $user ? $userName : $this->faker->name,
+            'user_email' => $user ? $user->email : $this->faker->safeEmail,
             'added_at' => now(),
             'status' => false,
         ];
+    }
+
+    public function closed()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status' => true,
+            ];
+        });
     }
 }

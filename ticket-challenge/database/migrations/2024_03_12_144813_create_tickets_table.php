@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('subject');
-            $table->string('content');
+            $table->text('content');
             $table->string('user_name');
             $table->string('user_email');
             $table->timestamp('added_at');
