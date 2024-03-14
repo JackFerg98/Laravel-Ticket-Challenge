@@ -23,7 +23,7 @@
 
 ## About
 
-This project is a Laravel-based application developed for a Laravel challenge for a job interview. It's sole purpose is for creating and processing tickets using dummy data periodically every 1 and 5 minutes respectively.
+This project is a Laravel-based application developed for a Laravel challenge for a job interview. It's sole purpose is for creating and processing tickets using dummy data periodically every 1 and 5 minutes respectively. The project has been setup using sail so that it can be run using docker.
 
 ## Instructions
 
