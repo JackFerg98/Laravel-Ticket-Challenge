@@ -23,20 +23,27 @@
 
 ## About
 
-This project is a Laravel-based application developed for the Laravel challenge.
+This project is a Laravel-based application developed for a Laravel challenge for a job interview. It's sole purpose is for creating and processing tickets using dummy data periodically every 1 and 5 minutes respectively.
 
 ## Instructions
 
 To get started with this project, follow these steps:
 
 1. Clone this repository to your local machine.
-2. Navigate to the project directory: cd ticket-challenge
-3. Install PHP dependencies using Composer: composer install
-4. Start the Docker environment: ./vendor/bin/sail up -d --build
-5. Run database migrations: ./vendor/bin/sail artisan migrate
-6. Seed the database with initial user data: ./vendor/bin/sail artisan db:seed --class=UserSeeder
-7. Start the scheduler for main functionality: ./vendor/bin/sail artisan schedule:work
-8. Run tests to ensure everything is working: ./vendor/bin/sail artisan test
+2. Navigate to the project directory: 
+```cd ticket-challenge```
+3. Install PHP dependencies using Composer: 
+```composer install```
+4. Start the Docker environment: 
+```./vendor/bin/sail up -d --build```
+5. Run database migrations: 
+```./vendor/bin/sail artisan migrate```
+6. Seed the database with initial user data: 
+```./vendor/bin/sail artisan db:seed --class=UserSeeder```
+7. Start the scheduler for main functionality: 
+```./vendor/bin/sail artisan schedule:work```
+8. Run tests to ensure everything is working: 
+```./vendor/bin/sail artisan test```
 
 
 These instructions will set up the project environment and run it locally for development or testing purposes.
