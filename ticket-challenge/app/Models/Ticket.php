@@ -15,10 +15,9 @@ class Ticket extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'subject',
         'content',
-        'user_name',
-        'user_email',
         'added_at',
         'status',
     ];
@@ -32,4 +31,9 @@ class Ticket extends Model
         'added_at' => 'datetime',
         'status' => 'boolean',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

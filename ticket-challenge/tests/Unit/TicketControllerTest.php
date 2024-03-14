@@ -19,31 +19,31 @@ class TicketControllerTest extends TestCase
         $response = $this->get('/api/tickets/open');
 
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                    'current_page',
-                    'data',
-                    'first_page_url',
-                    'from',
-                    'last_page',
-                    'last_page_url',
-                    'links',
-                    'next_page_url',
-                    'path',
-                    'per_page',
-                    'prev_page_url',
-                    'to',
-                    'total',
-                 ])
-                 ->assertJsonCount(10, 'data')
-                 ->assertJsonFragment(['total' => 20])
-                 ->assertJsonPath('current_page', 1)
-                 ->assertJsonPath('per_page', 10);
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'id',
+                        'subject',
+                        'content',
+                        'user_name',
+                        'user_email',
+                        'added_at',
+                        'status',
+                    ]
+                ],
+                'links',
+                'meta'
+            ])
+            ->assertJsonCount(10, 'data')
+            ->assertJsonFragment(['total' => 20])
+            ->assertJsonPath('meta.current_page', 1)
+            ->assertJsonPath('meta.per_page', 10);
 
-                 $this->assertNotEmpty($response['data']);
+        $this->assertNotEmpty($response['data']);
 
-                 foreach ($response['data'] as $ticket) {
-                     $this->assertFalse($ticket['status']);
-                 }
+        foreach ($response['data'] as $ticket) {
+            $this->assertFalse($ticket['status']);
+        }
     }
 
     public function testClosedTicketsEndpoint(): void
@@ -53,25 +53,25 @@ class TicketControllerTest extends TestCase
         $response = $this->get('/api/tickets/closed');
 
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                    'current_page',
-                    'data',
-                    'first_page_url',
-                    'from',
-                    'last_page',
-                    'last_page_url',
-                    'links',
-                    'next_page_url',
-                    'path',
-                    'per_page',
-                    'prev_page_url',
-                    'to',
-                    'total',
-                 ])
-                 ->assertJsonCount(10, 'data')
-                 ->assertJsonFragment(['total' => 20])
-                 ->assertJsonPath('current_page', 1)
-                 ->assertJsonPath('per_page', 10);
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'id',
+                        'subject',
+                        'content',
+                        'user_name',
+                        'user_email',
+                        'added_at',
+                        'status',
+                    ]
+                ],
+                'links',
+                'meta'
+            ])
+            ->assertJsonCount(10, 'data')
+            ->assertJsonFragment(['total' => 20])
+            ->assertJsonPath('meta.current_page', 1)
+            ->assertJsonPath('meta.per_page', 10);
 
         $this->assertNotEmpty($response['data']);
 
@@ -87,54 +87,54 @@ class TicketControllerTest extends TestCase
         $response = $this->get('/api/tickets');
 
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                    'current_page',
-                    'data',
-                    'first_page_url',
-                    'from',
-                    'last_page',
-                    'last_page_url',
-                    'links',
-                    'next_page_url',
-                    'path',
-                    'per_page',
-                    'prev_page_url',
-                    'to',
-                    'total',
-                 ])
-                 ->assertJsonCount(10, 'data')
-                 ->assertJsonFragment(['total' => 40])
-                 ->assertJsonPath('current_page', 1)
-                 ->assertJsonPath('per_page', 10);
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'id',
+                        'subject',
+                        'content',
+                        'user_name',
+                        'user_email',
+                        'added_at',
+                        'status',
+                    ]
+                ],
+                'links',
+                'meta'
+            ])
+            ->assertJsonCount(10, 'data')
+            ->assertJsonPath('meta.total', 40)
+            ->assertJsonPath('meta.current_page', 1)
+            ->assertJsonPath('meta.per_page', 10);
     }
 
     public function testUserTicketsEndpoint(): void
     {
         $this->seed();
 
-        $ticket = Ticket::all()->first();
-        $email = $ticket->user_email;
+        $ticket = Ticket::first();
+        $email = $ticket->user->email;
 
         $response = $this->get("/api/users/{$email}/tickets");
 
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                    'current_page',
-                    'data',
-                    'first_page_url',
-                    'from',
-                    'last_page',
-                    'last_page_url',
-                    'links',
-                    'next_page_url',
-                    'path',
-                    'per_page',
-                    'prev_page_url',
-                    'to',
-                    'total',
-                 ])
-                 ->assertJsonPath('current_page', 1)
-                 ->assertJsonPath('per_page', 10);
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => [
+                        'id',
+                        'subject',
+                        'content',
+                        'user_name',
+                        'user_email',
+                        'added_at',
+                        'status',
+                    ]
+                ],
+                'links',
+                'meta'
+            ])
+            ->assertJsonPath('meta.current_page', 1)
+            ->assertJsonPath('meta.per_page', 10);
     }
     
     public function testStatsEndpoint(): void

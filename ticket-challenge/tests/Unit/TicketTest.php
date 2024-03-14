@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,20 +13,23 @@ class TicketTest extends TestCase
 
     public function testTicketCanBeCreated(): void
     {
+        $user = User::factory()->create([
+            'name' => 'Jack Ferguson',
+            'email' => 'jackferguson@fakeemail.com',
+        ]);
+    
         $ticket = Ticket::factory()->create([
+            'user_id' => $user->id,
             'subject' => 'Test Subject',
             'content' => 'Test Content',
-            'user_name' => 'Jack Ferguson',
-            'user_email' => 'jackferguson@fakeemail.com',
             'added_at' => now(),
             'status' => false,
         ]);
-
-        $ticket = $this->assertDatabaseHas( 'tickets', [
+    
+        $this->assertDatabaseHas('tickets', [
             'subject' => 'Test Subject',
             'content' => 'Test Content',
-            'user_name' => 'Jack Ferguson',
-            'user_email' => 'jackferguson@fakeemail.com',
+            'user_id' => $user->id,
             'status' => false,
         ]);
     }

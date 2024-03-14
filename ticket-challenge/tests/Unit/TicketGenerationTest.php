@@ -22,8 +22,8 @@ class TicketGenerationTest extends TestCase
 
         $this->assertNotNull($ticket->subject);
         $this->assertNotNull($ticket->content);
-        $this->assertNotNull($ticket->user_name);
-        $this->assertNotNull($ticket->user_email);
+        $this->assertNotNull($ticket->user->name);
+        $this->assertNotNull($ticket->user->email);
         $this->assertNotNull($ticket->added_at);
         $this->assertFalse($ticket->status);
     }

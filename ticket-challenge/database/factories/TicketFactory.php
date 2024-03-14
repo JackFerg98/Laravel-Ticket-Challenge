@@ -22,15 +22,11 @@ class TicketFactory extends Factory
      */
     public function definition()
     {
-        $users = User::all()->pluck('name')->toArray();
-        $userName = $this->faker->randomElement($users);
-        $user = User::where('name', $userName)->first();
 
         return [
+            'user_id' => User::factory(),
             'subject' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
-            'user_name' => $user ? $userName : $this->faker->name,
-            'user_email' => $user ? $user->email : $this->faker->safeEmail,
             'added_at' => now(),
             'status' => false,
         ];

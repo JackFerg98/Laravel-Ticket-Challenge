@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Http\Resources\TicketResource;
 
 class UserController extends Controller
 {
@@ -18,9 +19,11 @@ class UserController extends Controller
 
     public function tickets(string $email) 
     {
-        $userTickets = Ticket::where('user_email', $email)->paginate(10);
+        $user = User::where('email', $email)->firstOrFail();
+
+        $userTickets = $user->tickets()->paginate(10);
         
-        return response()->json($userTickets);
+        return TicketResource::collection($userTickets);
     }
 
 }
